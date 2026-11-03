@@ -26,7 +26,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
       - run: npm run export:pwa
       # GitHub Pages has no clean-URL rewrites: serve the SPA shell for any
       # unknown path so deep links like /leben-pwa/question still boot the app.
