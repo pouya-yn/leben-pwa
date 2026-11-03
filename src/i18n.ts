@@ -1,0 +1,138 @@
+import type { Lang } from "@/data/questions";
+
+const STRINGS = {
+  de: {
+    appName: "Leben in Deutschland",
+    subtitle: "Einbürgerungstest · Berlin",
+    continuePractice: "Weiter üben",
+    startPractice: "Üben starten",
+    allQuestions: "Alle Fragen",
+    wrongQuestions: "Falsch beantwortete",
+    correct: "Richtig",
+    wrong: "Falsch",
+    unanswered: "Offen",
+    question: "Frage",
+    questionOf: (i: number, n: number) => `Frage ${i} von ${n}`,
+    noWrong: "Keine falsch beantworteten Fragen.",
+    noWrongHint:
+      "Fragen, die du falsch beantwortest, sammeln sich hier zum Wiederholen.",
+    yourAnswer: "Deine Antwort",
+    correctAnswer: "Richtige Antwort",
+    share: "Teilen",
+    markedWrong:
+      "Diese Frage ist als „falsch“ markiert. Sie wird erst durch „Als richtig markieren“ aus der Liste entfernt.",
+    markAsCorrect: "Als richtig markieren",
+    next: "Weiter",
+    back: "Zurück",
+    answeredStateCorrect: "Richtig beantwortet",
+    answeredStateWrong: "Falsch beantwortet",
+    answeredStateUnanswered: "Noch nicht beantwortet",
+    progress: "Fortschritt",
+    statsOf: (done: number, total: number) => `${done} von ${total}`,
+    catalogVersion: "Fragenkatalog",
+    wrongListTitle: "Falsch beantwortete Fragen",
+    allListTitle: "Alle Fragen",
+    mockExam: "Probeprüfung",
+    examRulesTitle: "So läuft die Probeprüfung",
+    examRules:
+      "33 Fragen wie in der echten Prüfung: 30 allgemeine und 3 Fragen zu Berlin. Du hast 60 Minuten Zeit. Bestanden ist ab 17 richtigen Antworten.",
+    startExam: "Prüfung starten",
+    resumeExam: "Prüfung fortsetzen",
+    finishExam: "Prüfung abschließen",
+    unansweredWarning: (n: number) =>
+      `Du hast ${n} Frage(n) nicht beantwortet. Trotzdem abschließen?`,
+    cancel: "Abbrechen",
+    passed: "Bestanden",
+    failed: "Nicht bestanden",
+    scoreOf: (c: number, n: number) => `${c} von ${n} richtigen Antworten`,
+    reviewTitle: "Auswertung",
+    newExam: "Neue Prüfung starten",
+    backHome: "Fertig",
+    examInProgress: "Prüfung läuft",
+    lastResult: (c: number, n: number) => `Letztes Ergebnis: ${c}/${n}`,
+    examHistory: "Prüfungsverlauf",
+    historyEmpty: "Noch keine Prüfungen.",
+    historyEmptyHint:
+      "Starte eine Probeprüfung – deine Ergebnisse sammeln sich hier.",
+    allCorrectInExam: "Alle Fragen richtig beantwortet. 🎉",
+    clearHistory: "Verlauf löschen",
+    clearHistoryConfirmTitle: "Verlauf löschen?",
+    clearHistoryConfirmText:
+      "Alle bisherigen Prüfungsergebnisse werden dauerhaft gelöscht.",
+    delete: "Löschen",
+    resetAnswers: "Zurücksetzen",
+    resetAnswersTitle: "Alles zurücksetzen?",
+    resetAnswersText:
+      "Alle Antwortstatus (richtig/falsch) und deine Position werden zurückgesetzt. Prüfungsverlauf bleibt unverändert.",
+  },
+  en: {
+    appName: "Life in Germany",
+    subtitle: "Citizenship test · Berlin",
+    continuePractice: "Continue practicing",
+    startPractice: "Start practicing",
+    allQuestions: "All questions",
+    wrongQuestions: "Answered wrongly",
+    correct: "Correct",
+    wrong: "Wrong",
+    unanswered: "Open",
+    question: "Question",
+    questionOf: (i: number, n: number) => `Question ${i} of ${n}`,
+    noWrong: "No wrongly answered questions.",
+    noWrongHint:
+      "Questions you answer incorrectly will collect here for review.",
+    yourAnswer: "Your answer",
+    correctAnswer: "Correct answer",
+    share: "Share",
+    markedWrong:
+      "This question is marked as \u201ewrong\u201c. It stays in the wrong list until you explicitly tap \u201eMark as correct\u201c.",
+    markAsCorrect: "Mark as correct",
+    next: "Next",
+    back: "Back",
+    answeredStateCorrect: "Answered correctly",
+    answeredStateWrong: "Answered wrongly",
+    answeredStateUnanswered: "Not answered yet",
+    progress: "Progress",
+    statsOf: (done: number, total: number) => `${done} of ${total}`,
+    catalogVersion: "Catalog",
+    wrongListTitle: "Wrongly answered questions",
+    allListTitle: "All questions",
+    mockExam: "Mock exam",
+    examRulesTitle: "How the mock exam works",
+    examRules:
+      "33 questions like the real test: 30 general and 3 about Berlin. You have 60 minutes. You pass with 17 correct answers.",
+    startExam: "Start exam",
+    resumeExam: "Resume exam",
+    finishExam: "Finish exam",
+    unansweredWarning: (n: number) =>
+      `You have ${n} unanswered question(s). Finish anyway?`,
+    cancel: "Cancel",
+    passed: "Passed",
+    failed: "Not passed",
+    scoreOf: (c: number, n: number) => `${c} of ${n} correct answers`,
+    reviewTitle: "Review",
+    newExam: "Start new exam",
+    backHome: "Done",
+    examInProgress: "Exam in progress",
+    lastResult: (c: number, n: number) => `Last result: ${c}/${n}`,
+    examHistory: "Exam history",
+    historyEmpty: "No exams yet.",
+    historyEmptyHint:
+      "Take a mock exam — your results will collect here.",
+    allCorrectInExam: "All questions answered correctly. 🎉",
+    clearHistory: "Clear history",
+    clearHistoryConfirmTitle: "Clear history?",
+    clearHistoryConfirmText:
+      "All exam results will be permanently deleted.",
+    delete: "Delete",
+    resetAnswers: "Reset",
+    resetAnswersTitle: "Reset everything?",
+    resetAnswersText:
+      "All answer states (correct/wrong) and your position will be reset. Exam history is not affected.",
+  },
+} as const;
+
+export type Strings = (typeof STRINGS)["de"];
+
+export function stringsFor(lang: Lang): Strings {
+  return STRINGS[lang] as Strings;
+}
