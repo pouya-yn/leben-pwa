@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -16,7 +15,7 @@ import {
   GENERAL_QUESTIONS,
   type Question,
 } from "@/data/questions";
-import { getImages } from "@/data/images";
+import { ImageStrip } from "@/components/image-strip";
 import { stringsFor } from "@/i18n";
 import {
   EXAM_BERLIN_COUNT,
@@ -218,30 +217,7 @@ function RunningView({
           {lang === "de" ? question.question.de : question.question.en}
         </Text>
 
-        {(() => {
-          const images = getImages(question.images);
-          if (images.length === 0) return null;
-          return (
-            <View
-              style={[
-                styles.imageStrip,
-                images.length === 1 && styles.imageSingle,
-              ]}
-            >
-              {images.map((src, i) => (
-                <View
-                  key={i}
-                  style={[
-                    styles.imageCell,
-                    images.length === 1 && styles.imageCellFull,
-                  ]}
-                >
-                  <Image source={src} style={styles.image} resizeMode="contain" />
-                </View>
-              ))}
-            </View>
-          );
-        })()}
+        <ImageStrip question={question} lang={lang} />
 
         <View style={styles.options}>
           {question.options.map((opt, i) => {

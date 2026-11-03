@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -20,7 +19,7 @@ import {
   type ListMode,
   type Question,
 } from "@/data/questions";
-import { getImages } from "@/data/images";
+import { ImageStrip } from "@/components/image-strip";
 import { stringsFor } from "@/i18n";
 import { theme } from "@/theme";
 
@@ -162,8 +161,6 @@ function QuestionPageContent({
     void shareText(text);
   };
 
-  const images = active ? getImages(question.images) : [];
-
   if (!active) {
     return <View style={styles.pagePlaceholder} />;
   }
@@ -178,20 +175,7 @@ function QuestionPageContent({
         {contentLang === "de" ? question.question.de : question.question.en}
       </Text>
 
-      {images.length > 0 && (
-        <View
-          style={[styles.imageStrip, images.length === 1 && styles.imageSingle]}
-        >
-          {images.map((src, i) => (
-            <Image
-              key={i}
-              source={src}
-              style={images.length === 1 ? styles.imageSolo : styles.image}
-              resizeMode="contain"
-            />
-          ))}
-        </View>
-      )}
+      <ImageStrip question={question} lang={contentLang} />
 
       <View style={styles.options}>
         {question.options.map((opt, i) => {
