@@ -16,14 +16,14 @@ import { join } from "node:path";
 const distDir = process.argv[2] ?? "dist";
 
 const PWA_HEAD = `
-<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#f2f2f7" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="Leben in DE" />
-<link rel="apple-touch-icon" href="/icons/icon-180.png" />
-<link rel="icon" href="/icons/icon-192.png" />
+<link rel="apple-touch-icon" href="icons/icon-180.png" />
+<link rel="icon" href="icons/icon-192.png" />
 <style>
   .leben-pager {
     display: flex; height: 100%; width: 100%;
@@ -43,7 +43,7 @@ const PWA_HEAD = `
 <script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-      navigator.serviceWorker.register("/sw.js").catch(function () {});
+      navigator.serviceWorker.register("sw.js", { scope: "./" }).catch(function () {});
     });
   }
 </script>
