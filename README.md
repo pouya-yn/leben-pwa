@@ -26,11 +26,22 @@ npx serve dist
 
 ## Deploy notes
 
-- **Clean URLs**: the app uses paths like `/question?mode=all&index=3`. The
-  static export emits `question.html` etc. — your host must rewrite
-  extensionless paths to the `.html` files (Netlify/Vercel/nginx do this
-  automatically; `npx serve` also works). As a fallback, `index.html` is a
-  SPA shell that can serve as the not-found fallback for any host.
+**Live: https://pouya-yn.github.io/leben-pwa/**
+
+Deployed to **GitHub Pages** via `.github/workflows/deploy.yml` — every push
+to `main` rebuilds and redeploys automatically (free).
+
+- `app.json` sets `experiments.baseUrl: "/leben-pwa"` so all asset URLs are
+  correct under the project-site sub-path. Change it if you rename the repo
+  or move to a root-domain host (Netlify/Vercel/Cloudflare: remove it and
+  set it back to `"/"`... i.e. delete the `baseUrl` line).
+- Manifest and SW use **relative** URLs (`./`, `icons/…`, `sw.js`), so they
+  work at any base path.
+- GitHub Pages has no clean-URL rewrites: the workflow copies `index.html`
+  to `404.html` as a SPA fallback so deep links like `/leben-pwa/question`
+  boot the app client-side. On hosts with clean-URL support
+  (Netlify/Vercel/`npx serve`) the per-route static pages are served
+  directly instead.
 - **Add to Home Screen**: `scripts/add-pwa.mjs` injects the manifest link,
   Apple PWA meta tags, `viewport-fit=cover`, the service-worker
   registration, and the pager CSS into every exported HTML file. iOS homescreen
